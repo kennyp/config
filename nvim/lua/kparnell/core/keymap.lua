@@ -30,3 +30,6 @@ vim.keymap.set('v', '<leader>P', 'x:set paste<CR>"+P:set nopaste<CR>', {
     desc = "Paste before from system clipboard",
     silent = true,
 })
+
+-- Refactoring
+vim.keymap.set("n", "<leader>rn", ":IncRename ", { desc = "Rename with LSP" })

@@ -4,6 +4,7 @@ return {
     lazy = true,
     config = function()
         local lsp = require("lsp-zero")
+        local neodev = require("neodev")
         local config = require('lspconfig')
 
         lsp.preset('recommended')
@@ -17,8 +18,11 @@ return {
                 ['lua_ls'] = { 'lua' },
                 ['rust_analyzer'] = { 'rust' },
                 ['gopls'] = { 'go' },
+                ['rust-lsp'] = { 'python' },
             }
         })
+
+        neodev.setup({})
 
         config.gopls.setup({
             settings = {
@@ -26,20 +30,32 @@ return {
                     unusedparams = true,
                 },
                 gopls = {
-                    buildFlags = { '-tags', 'demo,testdb' },
+                    buildFlags = { '-tags', 'demo,testdb,exercise' },
                 },
                 staticcheck = true,
             }
         })
 
+
         config.lua_ls.setup({
             settings = {
                 Lua = {
-                    diagnostics = {
-                        globals = { "vim" },
+                    runtime = {
+                        version = "LuaJIT",
                     },
                 },
             },
+        })
+
+        config.yamlls.setup({
+            settings = {
+                yaml = {
+                    schemas = {
+                        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+                        ["https://json.schemastore.org/dependabot-2.0.json"] = "*/dependabot.yml",
+                    }
+                }
+            }
         })
     end,
     dependencies = {

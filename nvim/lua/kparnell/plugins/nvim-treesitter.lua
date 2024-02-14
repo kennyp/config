@@ -9,6 +9,9 @@ return {
         local treesitter = require("nvim-treesitter.configs")
 
         treesitter.setup({
+            auto_install = true,
+            sync_install = false,
+            ignore_install = {},
             highlight = {
                 enable = true,
                 additional_vim_regex_highlighting = false,
@@ -29,6 +32,7 @@ return {
                 "bash",
                 "c",
                 "cue",
+                "diff",
                 "eex",
                 "elixir",
                 "erlang",
