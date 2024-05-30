@@ -1,7 +1,8 @@
-source "/Users/kparnell/.asdf/asdf.fish"
-source "/Users/kparnell/.asdf/completions/asdf.fish"
-source "/Users/kparnell/.asdf/plugins/java/set-java-home.fish"
-fish_add_path /Users/kparnell/.fzf/bin
+source "$HOME/.asdf/asdf.fish"
+source "$HOME/.asdf/completions/asdf.fish"
+source "$HOME/.asdf/plugins/java/set-java-home.fish"
+
+fish_add_path $HOME/.fzf/bin
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -12,7 +13,7 @@ if status is-interactive
     abbr p 'pushd ~/Projects/(find ~/Projects ~/Projects/playground -maxdepth 1 -type d | sed -e "s/^.*Projects//" -e "s/^\///" | grep -v "^\$" | sort -ru | fzf)'
     abbr gst 'git status -s'
     abbr gco 'git checkout'
-    abbr ebrc 'nvim /Users/kparnell/.config/fish/config.fish && exec /usr/local/bin/fish'
+    abbr ebrc "nvim $HOME/.config/fish/config.fish && exec /usr/local/bin/fish"
     abbr h 'heroku'
     abbr hs 'heroku sudo'
 
