@@ -17,6 +17,8 @@ if status is-interactive
     abbr h 'heroku'
     abbr hs 'heroku sudo'
 
+    set -g __fish_git_prompt_show_informative_status true
+
     # set -x ZELLIJ_AUTO_ATTACH true
     set -x ZELLIJ_AUTO_ATTACH false
     if not set -q ZELLIJ
