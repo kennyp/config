@@ -4,6 +4,7 @@ DEPS_OUT := $(foreach dep,$(DEPS),$(if $(shell which $(dep)),$(dep),$(error "No 
 
 CRYPTED := $(shell find . -name '*.gpg')
 PLAIN := $(foreach c,$(CRYPTED), $(basename $(c)))
+ADOPT := stow --dotfiles -t "$(HOME)" --adopt
 
 # Formatting/Display
 Q := $(if $(filter 1,$(VERBOSE)),,@)
@@ -24,11 +25,11 @@ help: ## Show this help text
 .PHONY: load
 load: $(PLAIN) ## Decrypt and adopt all packages
 	$(call start,adopting)
-	$(Q) stow -t "$(HOME)" --adopt fish
-	$(Q) stow -t "$(HOME)" --adopt alacritty
-	$(Q) stow -t "$(HOME)" --adopt git
-	$(Q) stow -t "$(HOME)" --adopt nvim
-	$(Q) stow -t "$(HOME)" --adopt zellij
+	$(Q) $(ADOPT) fish
+	$(Q) $(ADOPT) alacritty
+	$(Q) $(ADOPT) git
+	$(Q) $(ADOPT) nvim
+	$(Q) $(ADOPT) zellij
 
 .PHONY: decrypt
 decrypt: $(PLAIN) ## Decrypt all of the .gpg files.

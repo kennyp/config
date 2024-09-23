@@ -1,4 +1,4 @@
 /fish/.config/fish/fish_variables
-/git/.config/git/heroku
-/git/.config/git/personal
-/git/.config/git/salesforce
+/git/dot-config/git/heroku
+/git/dot-config/git/personal
+/git/dot-config/git/salesforce
