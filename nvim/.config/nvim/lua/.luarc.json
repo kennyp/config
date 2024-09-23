@@ -1,0 +1,24 @@
+{
+    "workspace.library": [
+        "/home/kparnell/.local/share/nvim/lazy/neodev.nvim/types/stable",
+        "/opt/nvim/share/nvim/runtime/lua",
+        "/home/kparnell/.local/share/nvim/lazy/telescope.nvim/lua",
+        "/home/kparnell/.local/share/nvim/lazy/mason-lspconfig.nvim/lua",
+        "/home/kparnell/.local/share/nvim/lazy/plenary.nvim/lua",
+        "/home/kparnell/.local/share/nvim/lazy/LuaSnip/lua",
+        "/home/kparnell/.local/share/nvim/lazy/nvim-treesitter/lua",
+        "/home/kparnell/.local/share/nvim/lazy/lsp-zero.nvim/lua",
+        "/home/kparnell/.local/share/nvim/lazy/nvim-cmp/lua",
+        "/home/kparnell/.local/share/nvim/lazy/nvim-treesitter-textobjects/lua",
+        "/home/kparnell/.local/share/nvim/lazy/nvim-lspconfig/lua",
+        "/home/kparnell/.local/share/nvim/lazy/which-key.nvim/lua",
+        "/home/kparnell/.local/share/nvim/lazy/lazy.nvim/lua",
+        "/home/kparnell/.local/share/nvim/lazy/tokyonight.nvim/lua",
+        "/home/kparnell/.local/share/nvim/lazy/mason.nvim/lua",
+        "/home/kparnell/.local/share/nvim/lazy/cmp-nvim-lsp/lua",
+        "/home/kparnell/.local/share/nvim/lazy/neodev.nvim/lua",
+        "/home/kparnell/.local/share/nvim/lazy/mason-tool-installer.nvim/lua",
+        "/home/kparnell/Projects/config/nvim/lua",
+        "${3rd}/luv/library"
+    ]
+}
