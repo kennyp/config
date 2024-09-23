@@ -5,8 +5,10 @@ DEPS_OUT := $(foreach dep,$(DEPS),$(if $(shell which $(dep)),$(dep),$(error "No 
 CRYPTED := $(shell find . -name '*.gpg')
 PLAIN := $(foreach c,$(CRYPTED), $(basename $(c)))
 ADOPT := stow --dotfiles -t "$(HOME)" --adopt
+PACKAGES ?= fish alacritty git nvim zellij ## Packages to adopt (default: fish alacritty git nvim zellij)
 
 # Formatting/Display
+VERBOSE ?= 0 ## Should commands be printed (0 or 1, default: 0)
 Q := $(if $(filter 1,$(VERBOSE)),,@)
 M = $(shell printf "\033[34;1m▶\033[0m")
 T = $(shell printf " ")
@@ -22,14 +24,9 @@ help: ## Show this help text
 	@printf "\n\033[34m%s\033[0m\n" "Encrypted Files"
 	@$(foreach f,$(PLAIN),printf "\033[33m%-40s\033[0m %s.gpg\n" $(f) $(f); )
 
-.PHONY: load
-load: $(PLAIN) ## Decrypt and adopt all packages
-	$(call start,adopting)
-	$(Q) $(ADOPT) fish
-	$(Q) $(ADOPT) alacritty
-	$(Q) $(ADOPT) git
-	$(Q) $(ADOPT) nvim
-	$(Q) $(ADOPT) zellij
+.PHONY: adopt
+adopt: $(PLAIN) ## Decrypt and adopt all packages
+	$(Q) $(foreach pkg,$(PACKAGES),$(call start,"adopting $(pkg)") && $(ADOPT) $(pkg); )
 
 .PHONY: decrypt
 decrypt: $(PLAIN) ## Decrypt all of the .gpg files.
@@ -46,8 +43,8 @@ $(PLAIN): $(CRYPTED)
 	$(Q) keybase decrypt -i $@.gpg -o $@
 	$(call success,done)
 
-start = $(Q) printf "\033[34;1m▶\033[0m %s…\n" "$(1)"
+start = printf "\033[34;1m▶\033[0m %s (%s)…\n" "$(1)"
 
-success = $(Q) printf "\033[32;1m✔️\033[0m %s\n" "$(1)"
+success = printf "\033[32;1m✔️\033[0m %s\n" "$(1)"
 
-failure = $(Q) printf "\033[31;1m✗\033[0m %s\n" "$(1)"
+failure = printf "\033[31;1m✗\033[0m %s\n" "$(1)"
