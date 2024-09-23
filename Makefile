@@ -19,7 +19,8 @@ help: ## Show this help text
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[33m%-30s\033[0m %s\n", $$1, $$2}'
 	@printf "\n\033[34m%s\033[0m\n" "Variables"
 	@grep -E '^[A-Z_-]+ .?= .*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = " .?= .*?## "}; {printf "\033[33m%-30s\033[0m %s\n", $$1, $$2}'
-	$(foreach dep,$(DEPS),$(shell printf "\033[33m%-30s\033[0m %s\n" $(dep) $(dep)))
+	@printf "\n\033[34m%s\033[0m\n" "Dependancies"
+	@$(foreach dep,$(DEPS),printf "\033[33m%-30s\033[0m %s\n" $(dep) $(shell which $(dep)); )
 
 .PHONY: load
 load: ## Decrypt and adopt all packages
