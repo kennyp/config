@@ -54,12 +54,12 @@ family = "ComicShannsMono Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
-family = "Comic Code Ligatures"
-style = "Bold Italic"
+family = "ComicShannsMono Nerd Font Propo"
+style = "Bold"
 
 [font.italic]
-family = "Comic Code Ligatures"
-style = "Italic"
+family = "ComicShannsMono Nerd Font Propo"
+style = "Regular"
 
 [font.normal]
 family = "ComicShannsMono Nerd Font"
