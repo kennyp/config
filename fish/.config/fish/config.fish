@@ -1,3 +1,6 @@
+# Glogal Variables
+set -U XDG_CONFIG_HOME "$HOME/.config"
+
 source "$HOME/.asdf/asdf.fish"
 source "$HOME/.asdf/completions/asdf.fish"
 source "$HOME/.asdf/plugins/java/set-java-home.fish"
