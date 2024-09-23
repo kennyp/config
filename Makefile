@@ -2,16 +2,13 @@
 DEPS = stow keybase
 DEPS_OUT := $(foreach dep,$(DEPS),$(if $(shell which $(dep)),$(dep),$(error "No $(dep) in PATH!")))
 
-# Verbosity
-VERBOSE ?= 0 ## Set verbosity level (default 0)
-__verbosity_1_ = @
-__verbosity_1_0 = @
-__verbosity_2_ = @
-__verbosity_2_0 = @
-__verbosity_2_1 = @
+CRYPTED := $(shell find . -name '*.gpg')
+PLAIN := $(foreach c,$(CRYPTED), $(basename $(c)))
 
-Q1=$(__verbosity_1_$(VERBOSE))
-Q2=$(__verbosity_2_$(VERBOSE))
+# Formatting/Display
+Q := $(if $(filter 1,$(VERBOSE)),,@)
+M = $(shell printf "\033[34;1m▶\033[0m")
+T = $(shell printf " ")
 
 .PHONY: help
 help: ## Show this help text
@@ -21,15 +18,35 @@ help: ## Show this help text
 	@grep -E '^[A-Z_-]+ .?= .*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = " .?= .*?## "}; {printf "\033[33m%-30s\033[0m %s\n", $$1, $$2}'
 	@printf "\n\033[34m%s\033[0m\n" "Dependancies"
 	@$(foreach dep,$(DEPS),printf "\033[33m%-30s\033[0m %s\n" $(dep) $(shell which $(dep)); )
+	@printf "\n\033[34m%s\033[0m\n" "Encrypted Files"
+	@$(foreach f,$(PLAIN),printf "\033[33m%-40s\033[0m %s.gpg\n" $(f) $(f); )
 
 .PHONY: load
-load: ## Decrypt and adopt all packages
-	$(info adopting...)
-	$(Q1)stow -t "$(HOME)" --adopt fish
-	$(Q1)stow -t "$(HOME)" --adopt alacritty
-	$(Q1)keybase decrypt -i git/.config/git/personal.gpg -o git/.config/git/personal
-	$(Q1)keybase decrypt -i git/.config/git/heroku.gpg -o git/.config/git/heroku
-	$(Q1)keybase decrypt -i git/.config/git/salesforce.gpg -o git/.config/git/salesforce
-	$(Q1)stow -t "$(HOME)" --adopt git
-	$(Q1)stow -t "$(HOME)" --adopt nvim
-	$(Q1)stow -t "$(HOME)" --adopt zellij
+load: $(PLAIN) ## Decrypt and adopt all packages
+	$(call start,adopting)
+	$(Q) stow -t "$(HOME)" --adopt fish
+	$(Q) stow -t "$(HOME)" --adopt alacritty
+	$(Q) stow -t "$(HOME)" --adopt git
+	$(Q) stow -t "$(HOME)" --adopt nvim
+	$(Q) stow -t "$(HOME)" --adopt zellij
+
+.PHONY: decrypt
+decrypt: $(PLAIN) ## Decrypt all of the .gpg files.
+	$(call success,done)
+
+.PHONY: encrypt
+encrypt: $(PLAIN) ## Encrypt all of the plain text versions of .gpg files.
+	$(call start,encrypting)
+	$(Q) $(foreach p,$(PLAIN),keybase encrypt -i $(p) -o $(p).gpg kennyp; )
+	$(call success,done)
+
+$(PLAIN): $(CRYPTED)
+	$(call start,decrypting $@.gpg)
+	$(Q) keybase decrypt -i $@.gpg -o $@
+	$(call success,done)
+
+start = $(Q) printf "\033[34;1m▶\033[0m %s…\n" "$(1)"
+
+success = $(Q) printf "\033[32;1m✔️\033[0m %s\n" "$(1)"
+
+failure = $(Q) printf "\033[31;1m✗\033[0m %s\n" "$(1)"
