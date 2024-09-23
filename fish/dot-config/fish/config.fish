@@ -7,7 +7,15 @@ source "$HOME/.asdf/plugins/java/set-java-home.fish"
 
 fish_add_path $HOME/.fzf/bin
 
+# ASDF Stuff
+set -x ASDF_GOLANG_MOD_VERSION_ENABLED false
+set -x FLUTTER_ROOT (asdf where flutter)
+
 if status is-interactive
+    # General Terminal Stuff
+    set -x TERM xterm-256color
+    set -x EDITOR nvim
+
     # Commands to run in interactive sessions can go here
     abbr ls 'eza'
     abbr ll 'eza -lh --icons'
@@ -19,6 +27,12 @@ if status is-interactive
     abbr ebrc "nvim $HOME/.config/fish/config.fish && exec /usr/local/bin/fish"
     abbr h 'heroku'
     abbr hs 'heroku sudo'
+    abbr ze zellij edit
+    abbr zr zellij run
+
+    if type -q toggle_vpn
+        complete -c toggle_vpn -f -a '(toggle_vpn complete)'
+    end
 
     set -g __fish_git_prompt_show_informative_status true
 
