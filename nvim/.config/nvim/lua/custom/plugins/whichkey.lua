@@ -1,6 +1,10 @@
 return {
   {
     "folke/which-key.nvim",
+    dependencies = {
+      "echasnovski/mini.icons",
+      "nvim-tree/nvim-web-devicons",
+    },
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
@@ -8,14 +12,19 @@ return {
     end,
     config = function()
       local wk = require("which-key")
-
-      -- register top level names
-      wk.register({
-        d = { "Debug" },
-        f = { "Find" },
-        g = { "Git" },
-        r = { "Run" },
-      }, { prefix = "<leader>" })
+      wk.add({
+        { "<leader>d", group = "Debug", icon = { icon = "𖢥", color = "red" } },
+        { "<leader>f", group = "Find", icon = { icon = "🔍", color = "green" } },
+        { "<leader>g", group = "Git", icon = { cat = "filetype", name = "git" } },
+        { "<leader>r", group = "Run", icon = { icon = "▷", color = "green" } },
+        {
+          "<leader>b",
+          group = "buffers",
+          expand = function()
+            return require("which-key.extras").expand.buf()
+          end,
+        },
+      })
     end,
     opts = {},
   },
