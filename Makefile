@@ -30,18 +30,18 @@ adopt: $(PLAIN) ## Decrypt and adopt all packages
 
 .PHONY: decrypt
 decrypt: $(PLAIN) ## Decrypt all of the .gpg files.
-	$(call success,done)
+	$(Q) $(call success,done)
 
 .PHONY: encrypt
 encrypt: $(PLAIN) ## Encrypt all of the plain text versions of .gpg files.
-	$(call start,encrypting)
+	$(Q) $(call start,encrypting)
 	$(Q) $(foreach p,$(PLAIN),keybase encrypt -i $(p) -o $(p).gpg kennyp; )
-	$(call success,done)
+	$(Q) $(call success,done)
 
 $(PLAIN): $(CRYPTED)
-	$(call start,decrypting $@.gpg)
+	$(Q) $(call start,decrypting $@.gpg)
 	$(Q) keybase decrypt -i $@.gpg -o $@
-	$(call success,done)
+	$(Q) $(call success,done)
 
 start = printf "\033[34;1m▶\033[0m %s (%s)…\n" "$(1)"
 
