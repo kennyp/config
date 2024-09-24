@@ -1,9 +1,16 @@
 # Glogal Variables
 set -U XDG_CONFIG_HOME "$HOME/.config"
 
-source "$HOME/.asdf/asdf.fish"
-source "$HOME/.asdf/completions/asdf.fish"
-source "$HOME/.asdf/plugins/java/set-java-home.fish"
+if test -f "$HOME/.asdf/asdf.fish"
+    source "$HOME/.asdf/asdf.fish"
+    source "$HOME/.asdf/completions/asdf.fish"
+
+    for f in java/set-java-home.fish dotnet/set-dotnet-env.fish
+        if test -f "$HOME/.asdf/plugins/$f"
+            source "$HOME/.asdf/plugins/$f"
+        end
+    end
+end
 
 fish_add_path $HOME/.fzf/bin
 

@@ -1,5 +1,5 @@
 direnv 2.32.3
-dotnet 7.0.401
+dotnet 8.0.402
 elixir 1.17.2-otp-27
 erlang 27.0.1
 flutter 3.22.3-stable
