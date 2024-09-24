@@ -5,7 +5,7 @@ DEPS_OUT := $(foreach dep,$(DEPS),$(if $(shell which $(dep)),$(dep),$(error "No 
 CRYPTED := $(shell find . -name '*.gpg')
 PLAIN := $(foreach c,$(CRYPTED), $(basename $(c)))
 ADOPT := stow --dotfiles -t "$(HOME)" --adopt
-PACKAGES ?= fish alacritty git nvim zellij ## Packages to adopt (default: fish alacritty git nvim zellij)
+PACKAGES ?= fish alacritty git nvim ssh zellij ## Packages to adopt (default: fish alacritty git nvim ssh zellij)
 
 # Formatting/Display
 VERBOSE ?= 0 ## Should commands be printed (0 or 1, default: 0)

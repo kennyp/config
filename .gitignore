@@ -3,3 +3,6 @@
 /git/dot-config/git/personal
 /git/dot-config/git/salesforce
 /fish/dot-config/fish/fish_variables
+/ssh/dot-ssh/id_rsa*
+/ssh/dot-ssh/id_dsa*
+/ssh/dot-ssh/known_hosts
