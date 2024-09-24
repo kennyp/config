@@ -1,8 +1,8 @@
 [reflow]
-	git-server = GitHub
+  git-server = GitHub
 [constants]
-	minimumApprovals = 
-	approvalRegex = (?i-mx:lgtm|looks good to me|:\\+1:|:thumbsup:|:shipit:|👍|🚢|:approve:|🉑)
+  minimumApprovals = 
+  approvalRegex = (?i-mx:lgtm|looks good to me|:\\+1:|:thumbsup:|:shipit:|👍|🚢|:approve:|🉑)
 [github]
-	site = https://github.com
-	endpoint = https://github.com/api/v3
+  site = https://github.com
+  endpoint = https://github.com/api/v3

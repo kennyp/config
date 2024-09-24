@@ -1,52 +1,52 @@
 [color]
-	ui = auto
+  ui = auto
 [push]
-	default = matching
+  default = matching
 [alias]
-    st = status -sb
-    lg = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-    me = !git lg --author `git config user.email`
-    standup = !git me --since yesterday
-    mine = !ghi list --mine
-    sh = !ghi show
-    df = !git diff -- $(git status --porcelain | grep -v compiled_views | awk '{ print $2 }' | tr '\n' ' ')
-    rck = !gh pr checks
-    rs = reflow start
-    rst = !gh pr view
-    rv = !gh pr create
-    ignored = ls-files --others -i --exclude-standard
-    added = !git diff master | grep '^+' | grep -v '^+++' | wc -l
-    removed = !git diff master | grep '^-' | grep -v '^---' | wc -l
-    lines = !echo "$(git added) lines added / $(git removed) lines removed"
-	up = pull --rebase --autostash
-    diff-master-stat = diff master --stat -- . ':(exclude)vendor'
-    diff-master-name = diff master --name-only -- . ':(exclude)vendor'
-    diff-master = diff master -- . ':(exclude)vendor'
-	who = !git ls-files | xargs -n1 -- git blame --line-porcelain | grep '^author ' | sed -e 's/^author //' | sort | uniq -c
+  added = !git diff master | grep '^+' | grep -v '^+++' | wc -l
+  df = !git diff -- $(git status --porcelain | grep -v compiled_views | awk '{ print $2 }' | tr '\n' ' ')
+  diff-master = diff master -- . ':(exclude)vendor'
+  diff-master-name = diff master --name-only -- . ':(exclude)vendor'
+  diff-master-stat = diff master --stat -- . ':(exclude)vendor'
+  ignored = ls-files --others -i --exclude-standard
+  lg = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  lines = !echo "$(git added) lines added / $(git removed) lines removed"
+  me = !git lg --author `git config user.email`
+  mine = !ghi list --mine
+  rck = !gh pr checks
+  removed = !git diff master | grep '^-' | grep -v '^---' | wc -l
+  rs = reflow start
+  rst = !gh pr view
+  rv = !gh pr create
+  sh = !ghi show
+  standup = !git me --since yesterday
+  st = status -sb
+  up = pull --rebase --autostash
+  who = !git ls-files | xargs -n1 -- git blame --line-porcelain | grep '^author ' | sed -e 's/^author //' | sort | uniq -c
 [status]
-    relativePaths = true
+  relativePaths = true
 [clean]
-	requireForce = true
+  requireForce = true
 [github]
-    site = https://github.com
-    endpoint = https://api.github.com
-    user = kennyp
+  site = https://github.com
+  endpoint = https://api.github.com
+  user = kennyp
 [commit]
-	gpgsign = true
+  gpgsign = true
 [credential]
-	credentialStore = secretservice
+  credentialStore = secretservice
 [maintenance]
-	repo = ~/Projects/herokuconnect
-	repo = ~/Projects/shogun
+  repo = ~/Projects/herokuconnect
+  repo = ~/Projects/shogun
 [include]
-	path = personal
+  path = personal
 [include]
-	path = reflow
+  path = reflow
 [include]
-    path = /mnt/mem/gitconfig.github
+  path = /mnt/mem/gitconfig.github
 [includeIf "hasconfig:remote.*.url:https://github.com/heroku/**"]
-	path = heroku
+  path = heroku
 [includeIf "hasconfig:remote.*.url:ssh://git@github.com:heroku/**"]
-	path = heroku
+  path = heroku
 [url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
