@@ -6,3 +6,4 @@
 /ssh/dot-ssh/id_rsa*
 /ssh/dot-ssh/id_dsa*
 /ssh/dot-ssh/known_hosts
+/offlineimap/dot-offlineimaprc

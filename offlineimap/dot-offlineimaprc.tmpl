@@ -1,0 +1,42 @@
+[general]
+ui = ttyui
+accounts = Proton, Gmail
+
+[Account Gmail]
+localrepository = Gmail-Local
+remoterepository = Gmail-Remote
+
+[Repository Gmail-Local]
+type = Maildir
+localfolders = /var/mail/op://config/Gmail/username
+
+[Repository Gmail-Remote]
+type = Gmail
+remoteuser = op://config/Gmail/username
+remotepass = op://config/Gmail/password
+realdelete = no
+maxconnections = 4
+folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail']
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+auth_mechanisms = LOGIN
+
+[Account Proton]
+localrepository = Proton-Local
+remoterepository = Proton-Remote
+
+[Repository Proton-Local]
+type = Maildir
+localfolders = /var/mail/op://config/Proton/username
+
+[Repository Proton-Remote]
+type = IMAP
+remotehost = 127.0.0.1
+remoteport = 1143
+remoteuser = op://config/Proton/username
+remotepass = op://config/Proton/password
+realdelete = no
+maxconnections = 4
+ssl = no
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+starttls = yes
+auth_mechanisms = LOGIN

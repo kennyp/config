@@ -1,10 +1,11 @@
 # Make sure deps are installed
-DEPS = stow keybase
+DEPS = stow keybase op
 DEPS_OUT := $(foreach dep,$(DEPS),$(if $(shell which $(dep)),$(dep),$(error "No $(dep) in PATH!")))
 
 CRYPTED := $(shell find . -name '*.gpg')
 PLAIN := $(foreach c,$(CRYPTED), $(basename $(c)))
-ADOPT := stow --dotfiles -t "$(HOME)" --adopt
+ADOPT := stow --ignore="\.tmpl" --dotfiles -t "$(HOME)" --adopt
+TEMPLATES := $(patsubst %.tmpl,%,$(shell find . -type f -name '*.tmpl'))
 PACKAGES ?= $(patsubst %/,%,$(sort $(dir $(wildcard */)))) ## Packages to adopt (defaults to all)
 
 # Formatting/Display
@@ -23,9 +24,11 @@ help: ## Show this help text
 	@$(foreach dep,$(DEPS),printf "\033[33m%-30s\033[0m %s\n" $(dep) $(shell which $(dep)); )
 	@printf "\n\033[34m%s\033[0m\n" "Encrypted Files"
 	@$(foreach f,$(PLAIN),printf "\033[33m%-40s\033[0m %s.gpg\n" $(f) $(f); )
+	@printf "\n\033[34m%s\033[0m\n" "Templates"
+	@$(foreach f,$(TEMPLATES),printf "\033[33m%-40s\033[0m %s.tmpl\n" $(f) $(f); )
 
 .PHONY: adopt
-adopt: $(PLAIN) ## Decrypt and adopt all packages
+adopt: $(PLAIN) $(TEMPLATES) ## Decrypt and adopt all packages
 	$(Q) $(foreach pkg,$(PACKAGES),$(call start,"adopting\ $(pkg)") && $(ADOPT) $(pkg); )
 
 .PHONY: decrypt
@@ -42,6 +45,9 @@ $(PLAIN): $(CRYPTED)
 	$(Q) $(call start,decrypting $@.gpg)
 	$(Q) keybase decrypt -i $@.gpg -o $@
 	$(Q) $(call success,done)
+
+%: %.tmpl
+	$(Q) op inject -i $< -o $@
 
 start = printf "\033[34;1m▶\033[0m %s…\n" "$(1)"
 
