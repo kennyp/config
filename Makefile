@@ -5,7 +5,7 @@ DEPS_OUT := $(foreach dep,$(DEPS),$(if $(shell which $(dep)),$(dep),$(error "No 
 CRYPTED := $(shell find . -name '*.gpg')
 PLAIN := $(foreach c,$(CRYPTED), $(basename $(c)))
 ADOPT := stow --dotfiles -t "$(HOME)" --adopt
-PACKAGES ?= fish alacritty git nvim ssh zellij ## Packages to adopt (default: fish alacritty git nvim ssh zellij)
+PACKAGES ?= $(patsubst %/,%,$(sort $(dir $(wildcard */)))) ## Packages to adopt (defaults to all)
 
 # Formatting/Display
 VERBOSE ?= 0 ## Should commands be printed (0 or 1, default: 0)
@@ -26,7 +26,7 @@ help: ## Show this help text
 
 .PHONY: adopt
 adopt: $(PLAIN) ## Decrypt and adopt all packages
-	$(Q) $(foreach pkg,$(PACKAGES),$(call start,"adopting $(pkg)") && $(ADOPT) $(pkg); )
+	$(Q) $(foreach pkg,$(PACKAGES),$(call start,"adopting\ $(pkg)") && $(ADOPT) $(pkg); )
 
 .PHONY: decrypt
 decrypt: $(PLAIN) ## Decrypt all of the .gpg files.
@@ -43,7 +43,7 @@ $(PLAIN): $(CRYPTED)
 	$(Q) keybase decrypt -i $@.gpg -o $@
 	$(Q) $(call success,done)
 
-start = printf "\033[34;1m▶\033[0m %s (%s)…\n" "$(1)"
+start = printf "\033[34;1m▶\033[0m %s…\n" "$(1)"
 
 success = printf "\033[32;1m✔️\033[0m %s\n" "$(1)"
 
