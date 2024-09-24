@@ -15,6 +15,10 @@ return {
       wk.add({
         { "<leader>d", group = "Debug", icon = { icon = "𖢥", color = "red" } },
         { "<leader>f", group = "Find", icon = { icon = "🔍", color = "green" } },
+        { "<leader>fo", icon = { icon = "󰙅", color = "green" } },
+        { "<leader>p", icon = { icon = "", color = "azure" } },
+        { "<leader>P", icon = { icon = "", color = "azure" } },
+        { "<leader>y", icon = { icon = "", color = "azure" } },
         { "<leader>g", group = "Git", icon = { cat = "filetype", name = "git" } },
         { "<leader>r", group = "Run", icon = { icon = "▷", color = "green" } },
         {
