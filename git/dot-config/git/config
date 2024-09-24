@@ -48,5 +48,7 @@
   path = heroku
 [includeIf "hasconfig:remote.*.url:ssh://git@github.com:heroku/**"]
   path = heroku
+[includeIf "hasconfig:remote.*.url:git@github.com:heroku/**"]
+  path = heroku
 [url "ssh://git@github.com/"]
   insteadOf = https://github.com/
