@@ -1,0 +1,13 @@
+cuelang.org/go/cmd/cue@latest
+github.com/charmbracelet/glow
+github.com/fullstorydev/grpcurl/cmd/grpcurl
+github.com/go-delve/delve/cmd/dlv@latest
+github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+github.com/hashicorp/terraform-ls@latest
+github.com/jessfraz/morningpaper2remarkable
+github.com/juruen/rmapi
+github.com/mdempsky/gocode@latest
+github.com/x-motemen/gore/cmd/gore@latest
+golang.org/x/tools/gopls@latest
+golang.org/x/tools/...@latest
+honnef.co/go/tools/cmd/staticcheck@latest
