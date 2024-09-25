@@ -2,9 +2,11 @@
 DEPS = stow op
 DEPS_OUT := $(foreach dep,$(DEPS),$(if $(shell which $(dep)),$(dep),$(error "No $(dep) in PATH!")))
 
-ADOPT := stow --ignore="\.tmpl" --dotfiles -t "$(HOME)" --adopt
-TEMPLATES := $(patsubst %.tmpl,%,$(shell find . -type f -name '*.tmpl'))
 PACKAGES ?= $(patsubst %/,%,$(sort $(dir $(wildcard */)))) ## Packages to adopt (defaults to all)
+TEMPLATES := $(patsubst %.tmpl,%,$(shell find $(foreach p,$(PACKAGES),./$(p) ) -type f -name '*.tmpl'))
+
+# Define the ADOPT command
+ADOPT := stow --ignore="\.tmpl" --dotfiles -t "$(HOME)" --adopt
 
 # Formatting/Display
 VERBOSE ?= 0 ## Should commands be printed (0 or 1, default: 0)
