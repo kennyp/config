@@ -1,9 +1,7 @@
 # Make sure deps are installed
-DEPS = stow keybase op
+DEPS = stow op
 DEPS_OUT := $(foreach dep,$(DEPS),$(if $(shell which $(dep)),$(dep),$(error "No $(dep) in PATH!")))
 
-CRYPTED := $(shell find . -name '*.gpg')
-PLAIN := $(foreach c,$(CRYPTED), $(basename $(c)))
 ADOPT := stow --ignore="\.tmpl" --dotfiles -t "$(HOME)" --adopt
 TEMPLATES := $(patsubst %.tmpl,%,$(shell find . -type f -name '*.tmpl'))
 PACKAGES ?= $(patsubst %/,%,$(sort $(dir $(wildcard */)))) ## Packages to adopt (defaults to all)
@@ -20,37 +18,16 @@ help: ## Show this help text
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[33m%-30s\033[0m %s\n", $$1, $$2}'
 	@printf "\n\033[34m%s\033[0m\n" "Variables"
 	@grep -E '^[A-Z_-]+ .?= .*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = " .?= .*?## "}; {printf "\033[33m%-30s\033[0m %s\n", $$1, $$2}'
-	@printf "\n\033[34m%s\033[0m\n" "Dependancies"
+	@printf "\n\033[34m%-30s %s\033[0m\n" "Utility" "Path"
 	@$(foreach dep,$(DEPS),printf "\033[33m%-30s\033[0m %s\n" $(dep) $(shell which $(dep)); )
-	@printf "\n\033[34m%s\033[0m\n" "Encrypted Files"
-	@$(foreach f,$(PLAIN),printf "\033[33m%-40s\033[0m %s.gpg\n" $(f) $(f); )
-	@printf "\n\033[34m%s\033[0m\n" "Templates"
-	@$(foreach f,$(TEMPLATES),printf "\033[33m%-40s\033[0m %s.tmpl\n" $(f) $(f); )
+	@printf "\n\033[34m%-40s %s\033[0m\n" "Template" "Target"
+	@$(foreach f,$(TEMPLATES),printf "\033[33m%-40s\033[0m %s\n" "$(f).tmpl" $(f); )
 
 .PHONY: adopt
-adopt: $(PLAIN) $(TEMPLATES) ## Decrypt and adopt all packages
-	$(Q) $(foreach pkg,$(PACKAGES),$(call start,"adopting\ $(pkg)") && $(ADOPT) $(pkg); )
-
-.PHONY: decrypt
-decrypt: $(PLAIN) ## Decrypt all of the .gpg files.
-	$(Q) $(call success,done)
-
-.PHONY: encrypt
-encrypt: $(PLAIN) ## Encrypt all of the plain text versions of .gpg files.
-	$(Q) $(call start,encrypting)
-	$(Q) $(foreach p,$(PLAIN),keybase encrypt -i $(p) -o $(p).gpg kennyp; )
-	$(Q) $(call success,done)
-
-$(PLAIN): $(CRYPTED)
-	$(Q) $(call start,decrypting $@.gpg)
-	$(Q) keybase decrypt -i $@.gpg -o $@
-	$(Q) $(call success,done)
+adopt: $(TEMPLATES) ## Generate from templates and adopt PACKAGES
+	$(Q) $(foreach pkg,$(PACKAGES),$(call log,"adopting\ $(pkg)") && $(ADOPT) $(pkg); )
 
 %: %.tmpl
-	$(Q) op inject -i $< -o $@
+	$(Q) op inject -f -i $< -o $@
 
-start = printf "\033[34;1m▶\033[0m %s…\n" "$(1)"
-
-success = printf "\033[32;1m✔️\033[0m %s\n" "$(1)"
-
-failure = printf "\033[31;1m✗\033[0m %s\n" "$(1)"
+log = printf "\033[34;1m▶\033[0m %s…\n" "$(1)"
