@@ -12,7 +12,11 @@ if test -f "$HOME/.asdf/asdf.fish"
   end
 end
 
-fish_add_path $HOME/.fzf/bin
+for d in "$HOME/.fzf/bin" "$HOME/.cargo/bin" "/opt/homebrew/bin"
+  if test -d "$d"
+    fish_add_path "$d"
+  end
+end
 
 # ASDF Stuff
 set -x ASDF_GOLANG_MOD_VERSION_ENABLED false
@@ -47,9 +51,9 @@ if status is-interactive
   set -x ZELLIJ_AUTO_ATTACH false
   if not set -q ZELLIJ
     if test "$ZELLIJ_AUTO_ATTACH" = "true"
-      zellij attach -c
+      exec zellij attach -c
     else
-      zellij -l welcome
+      exec zellij -l welcome
     end
   
     if test "$ZELLIJ_AUTO_EXIT" = "true"
