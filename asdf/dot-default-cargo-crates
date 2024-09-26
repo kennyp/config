@@ -1,8 +1,11 @@
 bottom
-exa
+eza
 fd-find
 hyperfine
 nu
+ripgrep
 skim
 tree-sitter-cli
+wasm-pack
 zellij
+zoxide
