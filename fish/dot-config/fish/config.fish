@@ -12,7 +12,7 @@ if test -f "$HOME/.asdf/asdf.fish"
   end
 end
 
-for d in "$HOME/.fzf/bin" "$HOME/.cargo/bin" "/opt/homebrew/bin"
+for d in "/usr/local/bin" "/opt/homebrew/bin" "$HOME/.fzf/bin" "$HOME/.cargo/bin" "$HOME/bin"
   if test -d "$d"
     fish_add_path "$d"
   end
