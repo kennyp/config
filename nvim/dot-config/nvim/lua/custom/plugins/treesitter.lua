@@ -24,6 +24,7 @@ return {
       ---@diagnostic disable-next-line: missing-fields
       configs.setup({
         ensure_installed = {
+          "bash",
           "c",
           "c_sharp",
           "elixir",
@@ -31,8 +32,11 @@ return {
           "gleam",
           "go",
           "lua",
+          "markdown",
+          "markdown_inline",
           "python",
           "query",
+          "regex",
           "ruby",
           "rust",
           "vim",
