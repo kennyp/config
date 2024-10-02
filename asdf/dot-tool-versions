@@ -10,6 +10,7 @@ golang 1.23.1
 gum 0.13.0
 java zulu-21.30.23
 jq 1.6
+just 1.36.0
 kotlin 1.9.0
 lua 5.4.6
 nim 1.6.8

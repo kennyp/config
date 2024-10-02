@@ -31,6 +31,7 @@ return {
           "fsharp",
           "gleam",
           "go",
+          "just",
           "lua",
           "markdown",
           "markdown_inline",
