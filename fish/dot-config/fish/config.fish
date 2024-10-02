@@ -14,7 +14,7 @@ end
 
 for d in "/usr/local/bin" "/opt/homebrew/bin" "$HOME/.fzf/bin" "$HOME/.cargo/bin" "$HOME/bin"
   if test -d "$d"
-    fish_add_path "$d"
+    fish_add_path -p -m "$d"
   end
 end
 
