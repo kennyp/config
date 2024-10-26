@@ -18,7 +18,7 @@ help:
     } | column -t -s '#'
     just break
 
-all := shell("find . -maxdepth 1 -type d -not -path '.' -not -path './.git' -printf '%P '")
+all := shell("find . -maxdepth 1 -type d -not -path '.' -not -path './.git' | sed -e 's|^./||' | tr '\n' ' '")
 
 [script]
 [doc("adopt packages")]
