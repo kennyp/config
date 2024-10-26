@@ -23,7 +23,7 @@ config.set_environment_variables = {
 -- Appearance
 config.background = {
 	{
-		source = { File = wezterm.config_dir .. "/Heroku Art Mt Fuji.png" },
+		source = { File = wezterm.config_dir .. "/heroku.png" },
 		vertical_align = "Middle",
 	},
 }
