@@ -12,7 +12,7 @@ java zulu-21.30.23
 jq 1.6
 just 1.36.0
 kotlin 1.9.0
-lua 5.4.6
+lua 5.1.5
 nim 1.6.8
 nodejs 20.4.0
 opa 0.61.0
