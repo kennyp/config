@@ -26,6 +26,7 @@ config.background = {
 	{
 		source = { File = wezterm.config_dir .. "/heroku.png" },
 		vertical_align = "Middle",
+		horizontal_align = "Center",
 	},
 }
 config.color_scheme = "Catppuccin Mocha (Gogh)"
