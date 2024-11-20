@@ -21,6 +21,7 @@ config.set_environment_variables = {
 }
 
 -- Appearance
+config.animation_fps = 30
 config.background = {
 	{
 		source = { File = wezterm.config_dir .. "/heroku.png" },
@@ -30,5 +31,6 @@ config.background = {
 config.color_scheme = "Catppuccin Mocha (Gogh)"
 config.enable_tab_bar = false
 config.font_size = 16
+config.max_fps = 120
 
 return config
