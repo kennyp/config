@@ -22,6 +22,11 @@ config.set_environment_variables = {
 
 -- Appearance
 config.animation_fps = 30
+config.font = wezterm.font_with_fallback({
+	"Victor Mono",
+	"Cascadia Code",
+	"Fira Code",
+})
 config.background = {
 	{
 		source = { File = wezterm.config_dir .. "/heroku.png" },

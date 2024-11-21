@@ -48,16 +48,16 @@ if status is-interactive
   set -g __fish_git_prompt_show_informative_status true
 
   # set -x ZELLIJ_AUTO_ATTACH true
-  set -x ZELLIJ_AUTO_ATTACH false
-  if not set -q ZELLIJ
-    if test "$ZELLIJ_AUTO_ATTACH" = "true"
-      exec zellij attach -c
-    else
-      exec zellij -l welcome
-    end
-  
-    if test "$ZELLIJ_AUTO_EXIT" = "true"
-      kill $fish_pid
-    end
-  end
+  # set -x ZELLIJ_AUTO_ATTACH false
+  # if not set -q ZELLIJ
+  #   if test "$ZELLIJ_AUTO_ATTACH" = "true"
+  #     exec zellij attach -c
+  #   else
+  #     exec zellij -l welcome
+  #   end
+  # 
+  #   if test "$ZELLIJ_AUTO_EXIT" = "true"
+  #     kill $fish_pid
+  #   end
+  # end
 end
